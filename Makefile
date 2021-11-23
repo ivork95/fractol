@@ -1,24 +1,47 @@
-NAME	=	fractol
-SRCS	=	srcs/complex.c\
-			srcs/fractol.c
-OBJS	=	$(SRCS:.c=.o)
-CC		=	gcc
-FLAGS	=	-Wall -Werror -Wextra
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: ivork <ivork@student.codam.nl>               +#+                      #
+#                                                    +#+                       #
+#    Created: 2021/11/14 22:58:41 by ivork         #+#    #+#                  #
+#    Updated: 2021/11/14 23:05:03 by ivork         ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
+
+NAME =		fractol
+
+SRCS =		srcs/fractol.c srcs/complex.c
+INCLUDES =	-Ilibft -Iincludes -Imlx_linux
+OBJS =		$(SRCS:.c=.o)
+CFLAGS =	-Wall -Werror -Wextra
 LIBFT	=	libft/libft.a
 
-all:		$(NAME)
-$(NAME):	$(LIBFT) $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) -Lmlx_linux -lmlx_linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz $(LIBFT) -o $(NAME)
-$(LIBFT):
-	Make -C libft
-%.o: %.c
-	$(CC) $(FLAGS) -Ilibft -Iincludes -I/usr/include -Imlx_linux -O3 -c $< -o $@
+all: $(NAME)
+
+$(NAME): $(OBJS) $(LIBFT) libmlx.dylib
+	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) \
+	$(LIBFT) mlx_linux/libmlx.a -lXext -lX11 -lm -lz -o $(NAME)
+
+.c.o:
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $(<:.c=.o)
+
 $(LIBFT):
 	make -C libft
+
+libmlx.dylib:
+	make -C mlx_linux
+
 clean:
-	make fclean -C libft
 	rm -f $(OBJS)
-fclean: clean
-	rm -f $(LIBFT)
-	rm -f $(NAME)
+	make -C libft clean
+
+fclean:
+	rm -f $(OBJS) $(NAME)
+	make -C libft fclean
+	make -C mlx_linux clean
+
 re: fclean all
+
+.PHONY: all clean fclean re mlx libft bonus FORCE
