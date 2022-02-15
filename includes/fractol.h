@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   complex_num.h                                      :+:    :+:            */
+/*   fractol.h                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ivork <ivork@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/11/09 14:21:18 by ivork         #+#    #+#                 */
-/*   Updated: 2022/02/09 16:06:03 by ivork         ########   odam.nl         */
+/*   Created: 2022/02/04 21:27:48 by ivork         #+#    #+#                 */
+/*   Updated: 2022/02/06 16:05:20 by ivork         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMPLEX_NUM_H
-# define COMPLEX_NUM_H 
+#ifndef FRACTOL_H
+# define FRACTOL_H
+# define MAX_ITER 100
+# include <complex_num.h>
 
-typedef struct s_complex
-{
-	float				real;
-	float				imaginary;
-	struct s_complex	*constant;
-}	t_complex;
-
-t_complex	multiply_complex_num(t_complex num1, t_complex num2);
-t_complex	add_complex_num(t_complex num1, t_complex num2);
-float		absolute_complex(t_complex complex);
-
+unsigned int	julia_set(t_complex complex);
+unsigned int	mandelbrot_set(t_complex complex);
 #endif

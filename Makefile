@@ -1,47 +1,27 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: ivork <ivork@student.codam.nl>               +#+                      #
-#                                                    +#+                       #
-#    Created: 2021/11/14 22:58:41 by ivork         #+#    #+#                  #
-#    Updated: 2021/11/14 23:05:03 by ivork         ########   odam.nl          #
-#                                                                              #
-# **************************************************************************** #
+NAME = fractol
 
-NAME =		fractol
+CFLAGS = -Wall -Wextra -mtune=native -march=native -Ofast
+INCLUDES =	-Ilibft -Iincludes
+FILES =	main fractol complex color window
+SRC = $(FILES:%=srcs/%.c)
 
-SRCS =		srcs/fractol.c srcs/complex.c
-INCLUDES =	-Ilibft -Iincludes -Imlx_linux
-OBJS =		$(SRCS:.c=.o)
-CFLAGS =	-Wall -Werror -Wextra
-LIBFT	=	libft/libft.a
+OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT) libmlx.dylib
-	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) \
-	$(LIBFT) mlx_linux/libmlx.a -lXext -lX11 -lm -lz -o $(NAME)
+$(NAME): $(OBJ)
+	cd libft/ && $(MAKE)
+	gcc  $(CFLAGS) -o $(NAME) $(OBJ) -Iincludes libft/libft.a -Lmlx -lmlx -framework OpenGL -framework AppKit
 
-.c.o:
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $(<:.c=.o)
-
-$(LIBFT):
-	make -C libft
-
-libmlx.dylib:
-	make -C mlx_linux
+%.o:%.c
+	gcc $(CFLAGS) -Iincludes -Imlx -c -o $@ $<
 
 clean:
-	rm -f $(OBJS)
-	make -C libft clean
+	rm -f $(OBJ)
+	cd libft/ && $(MAKE) clean
 
-fclean:
-	rm -f $(OBJS) $(NAME)
-	make -C libft fclean
-	make -C mlx_linux clean
+fclean: clean
+	rm -f $(NAME)
+	cd libft/ && rm -f libft.a
 
 re: fclean all
-
-.PHONY: all clean fclean re mlx libft bonus FORCE

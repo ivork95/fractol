@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   complex_num.h                                      :+:    :+:            */
+/*   color.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ivork <ivork@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/11/09 14:21:18 by ivork         #+#    #+#                 */
-/*   Updated: 2022/02/09 16:06:03 by ivork         ########   odam.nl         */
+/*   Created: 2022/02/04 18:03:45 by ivork         #+#    #+#                 */
+/*   Updated: 2022/02/15 19:27:26 by ivork         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMPLEX_NUM_H
-# define COMPLEX_NUM_H 
+#include "fractol.h"
 
-typedef struct s_complex
+unsigned int	get_rgb(int n)
 {
-	float				real;
-	float				imaginary;
-	struct s_complex	*constant;
-}	t_complex;
-
-t_complex	multiply_complex_num(t_complex num1, t_complex num2);
-t_complex	add_complex_num(t_complex num1, t_complex num2);
-float		absolute_complex(t_complex complex);
-
-#endif
+	int		r;
+	int		g;
+	int		b;
+	float	t;
+	
+	if (n == MAX_ITER)
+		return (0);
+	t = (float)n / (float)MAX_ITER;
+	r = (int)(9 * (1 - t) * t * t * t * 255);
+	g = (int)(15 * (1 - t) * (1 - t) * t * t * 255);
+	b = (int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
+	return ((r << 16) + (g << 8) + b);
+}
