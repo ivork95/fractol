@@ -6,7 +6,7 @@
 /*   By: ivork <ivork@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/04 21:16:59 by ivork         #+#    #+#                 */
-/*   Updated: 2022/02/15 20:52:40 by ivork         ########   odam.nl         */
+/*   Updated: 2022/02/15 19:30:40 by ivork         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ int	plot_frame(t_vars *vars)
 		y = 0;
 		while (y < HEIGTH)
 		{
-			complex.real = (vars->max_x - vars->min_x) / WIDTH * (double)x
-					- vars->x_offset;
-			complex.imaginary = (vars->max_y - vars->min_y) / HEIGTH * (double)y
-					- vars->y_offset;
+			complex.real = (vars->scale * 3.0 / WIDTH * (double)x
+					- vars->scale * vars->x_offset);
+			complex.imaginary = (vars->scale * 3.0 / HEIGTH * (double)y
+					- vars->scale * vars->y_offset);
 			color = get_rgb(vars->set(complex));
 			my_mlx_pixel_put(&vars->img, x, y, color);
 			y++;
@@ -57,10 +57,15 @@ int	scale_frame(int key_code, int x, int y, t_vars *vars)
 {
 	if (key_code == ZOOM_OUT)
 	{
+		vars->scale *= 1.05;
 		plot_frame(vars);
 	}
 	if (key_code == ZOOM_IN)
 	{
+		vars->x_offset += ((float)400 - (float)x) / (float)WIDTH;
+		vars->y_offset += ((float)400 - (float)y) / (float)WIDTH;
+		vars->scale *= 0.95;
+		// printf("offset = %f\n", vars->x_offset);
 		plot_frame(vars);
 	}
 	return (key_code);
@@ -89,11 +94,11 @@ int	close_window(int key_code, t_vars *vars)
 
 void	create_window(t_vars *vars, char **info)
 {
-
+	vars->y_offset = 1.5;
 	if (!ft_strncmp(info[1], "mandel", 7))
 	{
 		vars->set = &mandelbrot_set;
-		vars->x_offset = 2.5 * scale;
+		vars->x_offset = 2;
 	}
 	else if (!ft_strncmp(info[1], "julia", 6))
 	{
@@ -102,7 +107,7 @@ void	create_window(t_vars *vars, char **info)
 		if (info[3])
 			vars->constant->imaginary = ft_atod(info[3]);
 		vars->set = &julia_set;
-		vars->x_offset = 2;
+		vars->x_offset = 1.5;
 	}
 	else
 		error_func();
