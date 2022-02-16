@@ -1,6 +1,6 @@
 NAME = fractol
 
-CFLAGS = -Wall -Wextra -Wextra -mtune=native -march=native -Ofast -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Wextra -mtune=native -march=native -Ofast
 INCLUDES =	-Ilibft -Iincludes
 FILES =	main fractol complex color window pixel_put
 SRC = $(FILES:%=srcs/%.c)
