@@ -6,7 +6,7 @@
 /*   By: ivork <ivork@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/25 11:19:32 by ivork         #+#    #+#                 */
-/*   Updated: 2022/02/15 19:33:20 by ivork         ########   odam.nl         */
+/*   Updated: 2022/02/15 19:59:44 by ivork         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,6 @@
 # define ZOOM_OUT 4
 # define WIDTH 800
 # define HEIGTH 800
-# define MIN_X -2
-# define MAX_X 2
-# define MIN_Y -2
-# define MAX_X 2
 
 typedef struct s_data {
 	void	*img;
@@ -45,6 +41,10 @@ typedef struct s_vars {
 	float			scale;
 	float			x_offset;
 	float			y_offset;
+	float			min_x;
+	float			max_x;
+	float			min_y;
+	float			max_y;
 	unsigned int	(*set)(t_complex);
 	t_complex		*constant;
 }					t_vars;
