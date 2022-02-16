@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   color.c                                            :+:    :+:            */
+/*   pixel_put.h                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: ivork <ivork@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/02/04 18:03:45 by ivork         #+#    #+#                 */
-/*   Updated: 2022/02/16 15:59:27 by ivork         ########   odam.nl         */
+/*   Created: 2022/02/16 16:33:47 by ivork         #+#    #+#                 */
+/*   Updated: 2022/02/16 16:34:40 by ivork         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#ifndef PIXEL_PUT_H
+# define PIXEL_PUT_H
 
-unsigned int	get_rgb(int n)
-{
-	int		r;
-	int		g;
-	int		b;
-	float	t;
+# include <window.h>
 
-	if (n == MAX_ITER)
-		return (0);
-	t = (float)n / (float)MAX_ITER;
-	r = (int)(9 * (1 - t) * t * t * t * 255);
-	g = (int)(15 * (1 - t) * (1 - t) * t * t * 255);
-	b = (int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
-	return ((r << 16) + (g << 8) + b);
-}
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+
+#endif

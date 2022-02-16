@@ -6,12 +6,12 @@
 /*   By: ivork <ivork@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/09 14:25:07 by ivork         #+#    #+#                 */
-/*   Updated: 2022/02/09 16:48:14 by ivork         ########   odam.nl         */
+/*   Updated: 2022/02/16 17:27:07 by ivork         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <complex_num.h>
-#include <math.h>
+// #include <math.h>
 
 t_complex	multiply_complex_num(t_complex num1, t_complex num2)
 {
@@ -36,6 +36,6 @@ float	absolute_complex(t_complex complex)
 	float	x;
 
 	x = complex.real * complex.real + complex.imaginary
-			* complex.imaginary;
+		* complex.imaginary;
 	return (x);
 }

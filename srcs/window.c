@@ -6,7 +6,7 @@
 /*   By: ivork <ivork@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/04 21:16:59 by ivork         #+#    #+#                 */
-/*   Updated: 2022/02/15 19:30:40 by ivork         ########   odam.nl         */
+/*   Updated: 2022/02/16 17:33:29 by ivork         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,7 @@
 #include <colors.h>
 #include <fractol.h>
 #include <../libft/libft.h>
-
-#include <stdio.h>
-
-static void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
-}
+#include <pixel_put.h>
 
 int	plot_frame(t_vars *vars)
 {
@@ -40,9 +31,9 @@ int	plot_frame(t_vars *vars)
 		while (y < HEIGTH)
 		{
 			complex.real = (vars->scale * 3.0 / WIDTH * (double)x
-					- vars->scale * vars->x_offset);
+					- vars->scale * vars->x_offset) - vars->x_move;
 			complex.imaginary = (vars->scale * 3.0 / HEIGTH * (double)y
-					- vars->scale * vars->y_offset);
+					- vars->scale * vars->y_offset) - vars->y_move;
 			color = get_rgb(vars->set(complex));
 			my_mlx_pixel_put(&vars->img, x, y, color);
 			y++;
@@ -55,6 +46,8 @@ int	plot_frame(t_vars *vars)
 
 int	scale_frame(int key_code, int x, int y, t_vars *vars)
 {
+	(void)x;
+	(void)y;
 	if (key_code == ZOOM_OUT)
 	{
 		vars->scale *= 1.05;
@@ -62,30 +55,30 @@ int	scale_frame(int key_code, int x, int y, t_vars *vars)
 	}
 	if (key_code == ZOOM_IN)
 	{
-		vars->x_offset += ((float)400 - (float)x) / (float)WIDTH;
-		vars->y_offset += ((float)400 - (float)y) / (float)WIDTH;
 		vars->scale *= 0.95;
-		// printf("offset = %f\n", vars->x_offset);
 		plot_frame(vars);
 	}
 	return (key_code);
 }
 
-int	close_window(int key_code, t_vars *vars)
+int	close_window(t_vars *vars)
+{
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit(0);
+}
+
+int	key_press(int key_code, t_vars *vars)
 {
 	if (key_code == UP)
-		vars->y_offset += 0.1;
+		vars->y_move += 0.1 * vars->scale;
 	else if (key_code == DOWN)
-		vars->y_offset -= 0.1;
+		vars->y_move -= 0.1 * vars->scale;
 	else if (key_code == LEFT)
-		vars->x_offset += 0.1;
+		vars->x_move += 0.1 * vars->scale;
 	else if (key_code == RIGHT)
-		vars->x_offset -= 0.1;
+		vars->x_move -= 0.1 * vars->scale;
 	else if (key_code == ESC)
-	{
-		mlx_destroy_window(vars->mlx, vars->win);
-		exit(0);
-	}
+		close_window(vars);
 	else
 		return (key_code);
 	plot_frame(vars);
@@ -94,6 +87,8 @@ int	close_window(int key_code, t_vars *vars)
 
 void	create_window(t_vars *vars, char **info)
 {
+	vars->x_move = 0;
+	vars->y_move = 0;
 	vars->y_offset = 1.5;
 	if (!ft_strncmp(info[1], "mandel", 7))
 	{

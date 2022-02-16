@@ -6,7 +6,7 @@
 /*   By: ivork <ivork@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 17:20:41 by ivork         #+#    #+#                 */
-/*   Updated: 2022/02/09 17:20:51 by ivork         ########   odam.nl         */
+/*   Updated: 2022/02/16 16:21:28 by ivork         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ int	main(int argc, char **argv)
 		error_func();
 	create_window(&vars, argv);
 	plot_frame(&vars);
-	mlx_key_hook(vars.win, close_window, &vars);
+	mlx_key_hook(vars.win, key_press, &vars);
 	mlx_mouse_hook(vars.win, scale_frame, &vars);
+	mlx_hook(vars.win, 17, 0, close_window, &vars);
 	mlx_loop(vars.mlx);
 	return (0);
 }

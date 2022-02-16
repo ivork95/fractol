@@ -6,7 +6,7 @@
 /*   By: ivork <ivork@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/25 11:19:32 by ivork         #+#    #+#                 */
-/*   Updated: 2022/02/15 19:33:20 by ivork         ########   odam.nl         */
+/*   Updated: 2022/02/16 17:31:50 by ivork         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,6 @@
 # define ZOOM_OUT 4
 # define WIDTH 800
 # define HEIGTH 800
-# define MIN_X -2
-# define MAX_X 2
-# define MIN_Y -2
-# define MAX_X 2
 
 typedef struct s_data {
 	void	*img;
@@ -45,6 +41,8 @@ typedef struct s_vars {
 	float			scale;
 	float			x_offset;
 	float			y_offset;
+	float			y_move;
+	float			x_move;
 	unsigned int	(*set)(t_complex);
 	t_complex		*constant;
 }					t_vars;
@@ -52,6 +50,8 @@ typedef struct s_vars {
 void		create_window(t_vars *vars, char **info);
 void		error_func(void);
 int			scale_frame(int key_code, int x, int y, t_vars *vars);
-int			close_window(int key_code, t_vars *vars);
+int			close_window(t_vars *vars);
+int			key_press(int key_code, t_vars *vars);
 int			plot_frame(t_vars *vars);
+
 #endif
