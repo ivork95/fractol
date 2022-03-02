@@ -6,12 +6,11 @@
 /*   By: ivork <ivork@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/04 21:21:47 by ivork         #+#    #+#                 */
-/*   Updated: 2022/03/02 14:22:31 by ivork         ########   odam.nl         */
+/*   Updated: 2022/03/02 14:50:50 by ivork         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <complex_num.h>
-#include <math.h>
 #include <fractol.h>
 
 unsigned int	julia_set(t_complex complex, t_complex constant)
