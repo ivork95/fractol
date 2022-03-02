@@ -6,7 +6,7 @@
 /*   By: ivork <ivork@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/04 21:16:59 by ivork         #+#    #+#                 */
-/*   Updated: 2022/02/16 17:33:29 by ivork         ########   odam.nl         */
+/*   Updated: 2022/03/02 14:28:59 by ivork         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	plot_frame(t_vars *vars)
 	int				y;
 
 	x = 0;
-	complex.constant = vars->constant;
 	while (x < WIDTH)
 	{
 		y = 0;
@@ -34,7 +33,7 @@ int	plot_frame(t_vars *vars)
 					- vars->scale * vars->x_offset) - vars->x_move;
 			complex.imaginary = (vars->scale * 3.0 / HEIGTH * (double)y
 					- vars->scale * vars->y_offset) - vars->y_move;
-			color = get_rgb(vars->set(complex));
+			color = get_rgb(vars->set(complex, *vars->constant));
 			my_mlx_pixel_put(&vars->img, x, y, color);
 			y++;
 		}
@@ -90,7 +89,7 @@ void	create_window(t_vars *vars, char **info)
 	vars->x_move = 0;
 	vars->y_move = 0;
 	vars->y_offset = 1.5;
-	if (!ft_strncmp(info[1], "mandel", 7))
+	if (!ft_strncmp(info[1], "mandelbrot", 7))
 	{
 		vars->set = &mandelbrot_set;
 		vars->x_offset = 2;
@@ -98,7 +97,7 @@ void	create_window(t_vars *vars, char **info)
 	else if (!ft_strncmp(info[1], "julia", 6))
 	{
 		if (info[2])
-		vars->constant->real = ft_atod(info[2]);
+			vars->constant->real = ft_atod(info[2]);
 		if (info[3])
 			vars->constant->imaginary = ft_atod(info[3]);
 		vars->set = &julia_set;
