@@ -6,7 +6,7 @@
 /*   By: ivork <ivork@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/09 14:21:18 by ivork         #+#    #+#                 */
-/*   Updated: 2022/02/09 16:06:03 by ivork         ########   odam.nl         */
+/*   Updated: 2022/03/02 14:19:32 by ivork         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ typedef struct s_complex
 {
 	float				real;
 	float				imaginary;
-	struct s_complex	*constant;
 }	t_complex;
 
 t_complex	multiply_complex_num(t_complex num1, t_complex num2);
