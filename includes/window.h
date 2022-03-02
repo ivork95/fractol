@@ -6,7 +6,7 @@
 /*   By: ivork <ivork@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/11/25 11:19:32 by ivork         #+#    #+#                 */
-/*   Updated: 2022/02/16 17:31:50 by ivork         ########   odam.nl         */
+/*   Updated: 2022/03/02 14:18:10 by ivork         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_vars {
 	float			y_offset;
 	float			y_move;
 	float			x_move;
-	unsigned int	(*set)(t_complex);
+	unsigned int	(*set)(t_complex, t_complex);
 	t_complex		*constant;
 }					t_vars;
 
