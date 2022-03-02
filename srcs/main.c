@@ -6,16 +6,13 @@
 /*   By: ivork <ivork@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 17:20:41 by ivork         #+#    #+#                 */
-/*   Updated: 2022/03/02 14:30:25 by ivork         ########   odam.nl         */
+/*   Updated: 2022/03/02 14:48:11 by ivork         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <window.h>
 #include <stdlib.h>
 #include <../libft/ft_printf/ft_printf.h>
-
-
-#include <stdio.h>
 
 void	error_func(void)
 {
