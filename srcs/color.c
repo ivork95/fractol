@@ -6,11 +6,11 @@
 /*   By: ivork <ivork@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/04 18:03:45 by ivork         #+#    #+#                 */
-/*   Updated: 2022/02/16 15:59:27 by ivork         ########   odam.nl         */
+/*   Updated: 2022/03/02 14:52:10 by ivork         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include <fractol.h>
 
 unsigned int	get_rgb(int n)
 {
